@@ -22,7 +22,7 @@ from PySide6.QtCore import Qt
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Appium Dependency Installer")
+        self.setWindowTitle("Mobile Agent")
         self.setMinimumSize(600, 400)
 
         self.stacked_widget = QStackedWidget()
@@ -97,8 +97,13 @@ class MainWindow(QMainWindow):
     def start_server(self):
         if self.server_thread is None:
             PORT = 8000
-            # Get the path to the docs/site directory
-            doc_root = os.path.join(os.path.dirname(sys.argv[0]), '..', 'docs', 'site')
+
+            if getattr(sys, 'frozen', False):
+                # Running in a PyInstaller bundle
+                doc_root = os.path.join(sys._MEIPASS, 'docs', 'site')
+            else:
+                # Running in a normal Python environment
+                doc_root = os.path.join(os.path.dirname(__file__), '..', 'docs', 'site')
 
             class Handler(http.server.SimpleHTTPRequestHandler):
                 def __init__(self, *args, **kwargs):

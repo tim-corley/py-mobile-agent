@@ -30,7 +30,7 @@ jobs:
       working-directory: ./docs
 
     - name: Package Application
-      run: pyinstaller --name appium-installer --onefile --windowed --add-data "docs/site:docs/site" src/main.py
+      run: pyinstaller --name mobile-agent --onefile --windowed --add-data "docs/site:docs/site" src/main.py
 
     - name: Archive Artifacts
       uses: actions/upload-artifact@v4
