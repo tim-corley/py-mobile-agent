@@ -33,7 +33,7 @@ jobs:
       run: pyinstaller --name appium-installer --onefile --windowed --add-data "docs/site:docs/site" src/main.py
 
     - name: Archive Artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: appium-installer-${{ matrix.os }}
         path: dist/
