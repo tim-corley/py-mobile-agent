@@ -53,13 +53,14 @@ jobs:
       with:
         path: artifacts
 
-    - name: List downloaded artifacts
-      run: ls -R artifacts
+    - name: Zip macOS app
+      run: zip -r mobile-agent-macos.zip mobile-agent.app
+      working-directory: artifacts/mobile-agent-macos-latest/
 
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          artifacts/mobile-agent-ubuntu-latest/dist/mobile-agent
-          artifacts/mobile-agent-macos-latest/dist/mobile-agent
-          artifacts/mobile-agent-windows-latest/dist/mobile-agent.exe
+          artifacts/mobile-agent-ubuntu-latest/mobile-agent
+          artifacts/mobile-agent-macos-latest/mobile-agent.zip
+          artifacts/mobile-agent-windows-latest/mobile-agent.exe
