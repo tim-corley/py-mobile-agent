@@ -34,6 +34,10 @@ jobs:
     - name: Package Application
       run: pyinstaller --name mobile-agent --onefile --windowed --add-data "docs/site:docs/site" src/main.py
 
+    - name: Set executable permissions (Linux)
+      if: runner.os == 'Linux'
+      run: chmod +x dist/mobile-agent
+
     - name: Archive Artifacts
       uses: actions/upload-artifact@v4
       with:
@@ -56,6 +60,9 @@ jobs:
     - name: Zip macOS app
       run: zip -r mobile-agent-macos.zip mobile-agent.app
       working-directory: artifacts/mobile-agent-macos-latest/
+
+    - name: Verify macOS zip
+      run: ls -l artifacts/mobile-agent-macos-latest/
 
     - name: Create Release
       uses: softprops/action-gh-release@v1
