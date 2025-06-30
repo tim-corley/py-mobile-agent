@@ -68,6 +68,6 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          artifacts/mobile-agent-ubuntu-latest/mobile-agent
+          artifacts/mobile-agent-ubuntu-latest/mobile-agent:mobile-agent-linux
           artifacts/mobile-agent-macos-latest/mobile-agent-macos.zip
-          artifacts/mobile-agent-windows-latest/mobile-agent.exe
+          artifacts/mobile-agent-windows-latest/mobile-agent.exe:mobile-agent-windows.exe

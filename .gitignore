@@ -93,3 +93,6 @@ venv.bak/
 
 # mkdocs
 site/
+
+# Installed Dependencies
+installed_dependencies/

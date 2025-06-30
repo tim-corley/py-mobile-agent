@@ -18,6 +18,8 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt
 
+from installer import DependencyInstaller
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -34,26 +36,17 @@ class MainWindow(QMainWindow):
         self.httpd = None
         self.server_thread = None
 
+        self.installer = DependencyInstaller(os.path.dirname(os.path.abspath(__file__)))
+
     def create_install_view(self):
         view = QWidget()
         layout = QVBoxLayout(view)
 
-        title = QLabel("The following dependencies will be installed:")
-        title.setAlignment(Qt.AlignCenter)
-        layout.addWidget(title)
+        message = QLabel("Click the button below to install Mobile Agent and its dependencies.")
+        message.setAlignment(Qt.AlignCenter)
+        layout.addWidget(message)
 
-        self.install_list = QListWidget()
-        dependencies = [
-            "Node.js v20.11.0",
-            "Android SDK Platform-Tools",
-            "Appium v2.5.1",
-            "Appium Drivers (UIAutomator2, XCUITest)",
-        ]
-        for dep in dependencies:
-            self.install_list.addItem(dep)
-        layout.addWidget(self.install_list)
-
-        install_button = QPushButton("Install Dependencies")
+        install_button = QPushButton("Install Mobile Agent")
         install_button.clicked.connect(self.show_manual_steps_view)
         layout.addWidget(install_button)
 
@@ -91,7 +84,7 @@ class MainWindow(QMainWindow):
         self.stacked_widget.addWidget(view)
 
     def show_manual_steps_view(self):
-        # In the future, this will run the installation process
+        self.installer.install_all()
         self.stacked_widget.setCurrentIndex(1)
 
     def start_server(self):
